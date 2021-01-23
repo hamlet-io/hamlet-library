@@ -36,7 +36,7 @@ These are community plugins which generally implement modules based on the offic
 
 - [Cogntio Auth for QuickSight](https://github.com/hamlet-io/aws-cognito-quicksight-auth.git)
 
-    Provides a Cognito access through a single page app portal into AWS QuickSight. Plugin is available under `hamlet/cognitoqs`
+    Provides access through a single page app portal into AWS QuickSight using Cognito authentication. Plugin is available under `hamlet/cognitoqs`
 
 ## Jenkins
 
