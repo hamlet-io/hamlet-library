@@ -34,9 +34,13 @@ These are community plugins which generally implement modules based on the offic
 
     Creates an OIDC shim for Github oAuth Apps which is compatible with Cognito Federated Identities for userpools. Plugin is available under `hamlet/githubidp`
 
-- [Cogntio Auth for QuickSight](https://github.com/hamlet-io/aws-cognito-quicksight-auth.git)
+- [Cogntio Auth for QuickSight](https://github.com/hamlet-io/aws-cognito-quicksight-auth)
 
     Provides access through a single page app portal into AWS QuickSight using Cognito authentication. Plugin is available under `hamlet/cognitoqs`
+
+- [S3 Support](https://github.com/hamlet-io/lambda-s3-support)
+
+    Utilities or managing S3 Buckets with hamlet deployment module. Plugin is available under `hamlet/s3support`
 
 ## Jenkins
 
