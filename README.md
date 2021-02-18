@@ -42,6 +42,8 @@ These are community plugins which generally implement modules based on the offic
 
     Utilities or managing S3 Buckets with hamlet deployment module. Plugin is available under `hamlet/s3support`
 
+Submit a Pull Request to have a Plugin added to this list. We recommend that you use the [README template provided](templates/readme-template.md) to document your Module.
+
 ## Jenkins
 
 ### Shared Libraries
