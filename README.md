@@ -57,3 +57,11 @@ A collection of [Shared Libraries](https://www.jenkins.io/doc/book/pipeline/shar
 - [Hamlet Streams Shared Library](https://github.com/hamlet-io/jenkins-streams-shared-library)
 
     A release process built on top of the functions available in hamlet-deploy
+
+## Extensions
+
+A collection of official Extensions available for use in Hamlet.
+
+- [Shared Provider Extensions](https://github.com/hamlet-io/engine/tree/master/providers/shared/extensions)
+
+- [AWS](https://github.com/hamlet-io/engine-plugin-aws/tree/master/aws/extensions)
