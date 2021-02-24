@@ -25,7 +25,7 @@ list any kind of requirement or dependency for the usage of this module.
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "$id": "https://hamlet.io/schema/latest/blueprint/module-alarmslack-schema.json",
+  "$id": "",
   "definitions": {
     "<module-name>": {
       /* */
