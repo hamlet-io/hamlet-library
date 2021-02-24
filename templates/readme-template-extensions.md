@@ -1,4 +1,4 @@
-# <module-name> Hamlet Extension
+# <extension-name> Hamlet Extension
 
 This is a Hamlet Deploy extension.
 
