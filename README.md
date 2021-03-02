@@ -10,9 +10,18 @@ These plugins extend the [hamlet deploy](https://hamlet.io) engine to support di
 
 These are maintained by the hamlet team and are included in the docker distribution
 
+- Shared Provider
+    
+    Provider-independant configuration and definitions.
+
+    - [Extensions](https://github.com/hamlet-io/engine/tree/master/providers/shared/extensions)
+
+
 - [AWS](https://github.com/hamlet-io/engine-plugin-aws)
 
     CloudFormation based Deployments to Amazon Web Services
+
+    - [Extensions](https://github.com/hamlet-io/engine-plugin-aws/tree/master/aws/extensions)
 
 - [Azure](https://github.com/hamlet-io/engine-plugin-azure)
 
@@ -57,11 +66,3 @@ A collection of [Shared Libraries](https://www.jenkins.io/doc/book/pipeline/shar
 - [Hamlet Streams Shared Library](https://github.com/hamlet-io/jenkins-streams-shared-library)
 
     A release process built on top of the functions available in hamlet-deploy
-
-## Extensions
-
-A collection of official Extensions available for use in Hamlet.
-
-- [Shared Provider Extensions](https://github.com/hamlet-io/engine/tree/master/providers/shared/extensions)
-
-- [AWS](https://github.com/hamlet-io/engine-plugin-aws/tree/master/aws/extensions)
