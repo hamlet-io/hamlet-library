@@ -2,7 +2,8 @@
 
 This is a Hamlet Deploy module.
 
-See docs.hamlet.io for more information.
+See https://docs.hamlet.io for more information.
+
 ## Description
 <!-- provide a summary of the purpose and use-case for your module -->
 
