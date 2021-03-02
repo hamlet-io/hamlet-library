@@ -1,6 +1,6 @@
 # <module-name> Hamlet Module 
 
-This is a Hamlet Deploy module.
+This is a Hamlet Deploy module which provides predefined solutions that can be shared between different products as part of their deployments.
 
 See https://docs.hamlet.io for more information.
 
