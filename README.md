@@ -1,17 +1,17 @@
-# hamlet-library
+## Hamlet Deploy Library
 
-A library of standard infrastructure components that we use in Hamlet
+A library of standard infrastructure components for use in Hamlet Deploy
 
-## Hamlet Deploy Plugins
+## Plugins
 
-These plugins extend the [hamlet deploy](https://hamlet.io) engine to support different deployment models
+These plugins extend the [Hamlet Deploy](https://docs.hamlet.io) engine to support different deployment models
 
 ### Official Plugins
 
 These are maintained by the hamlet team and are included in the docker distribution
 
 - Shared Provider
-    
+
     Provider-independant configuration and definitions.
 
     - [Extensions](https://github.com/hamlet-io/engine/tree/master/providers/shared/extensions)
@@ -19,13 +19,13 @@ These are maintained by the hamlet team and are included in the docker distribut
 
 - [AWS](https://github.com/hamlet-io/engine-plugin-aws)
 
-    CloudFormation based Deployments to Amazon Web Services
+    CloudFormation based deployments to Amazon Web Services (AWS)
 
     - [Extensions](https://github.com/hamlet-io/engine-plugin-aws/tree/master/aws/extensions)
 
 - [Azure](https://github.com/hamlet-io/engine-plugin-azure)
 
-    Azure Resource Manager based deployments to Microsoft Azure
+    Azure Resource Manager (ARM) based deployments to Microsoft Azure
 
 - [Diagrams](https://github.com/hamlet-io/engine-plugin-diagrams)
 
@@ -51,18 +51,20 @@ These are community plugins which generally implement modules based on the offic
 
     Utilities or managing S3 Buckets with hamlet deployment module. Plugin is available under `hamlet/s3support`
 
-Submit a Pull Request to have a Plugin added to this list. We recommend that you use the [README template provided](templates/readme-template.md) to document your Module.
+Submit a Pull Request to have a Plugin added to this list. 
+
+We recommend that you use the [README template provided](templates/readme-template.md) to document your Module.
 
 ## Jenkins
 
 ### Shared Libraries
 
-A collection of [Shared Libraries](https://www.jenkins.io/doc/book/pipeline/shared-libraries/) we use in Hamlet
+A collection of [Shared Libraries](https://www.jenkins.io/doc/book/pipeline/shared-libraries/) for use in Hamlet Deploy
 
-- [Hamlet Shared Library](https://github.com/hamlet-io/jenkins-shared-library)
+- [Hamlet Deploy Shared Library](https://github.com/hamlet-io/jenkins-shared-library)
 
-    A collection of standard steps that you can use in Jenkins pipelines to work with hamlet-deploy
+    A collection of standard steps that you can use in Jenkins pipelines to work with Hamlet Deploy
 
-- [Hamlet Streams Shared Library](https://github.com/hamlet-io/jenkins-streams-shared-library)
+- [Hamlet Deploy Streams Shared Library](https://github.com/hamlet-io/jenkins-streams-shared-library)
 
-    A release process built on top of the functions available in hamlet-deploy
+    A release process built on top of the functions available in Hamlet Deploy.
