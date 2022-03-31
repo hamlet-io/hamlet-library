@@ -1,0 +1,15 @@
+{
+    "JenkinsEnv" : {
+        "AgentProvider" : "ecs",
+        "SecurityRealm": "{{cookiecutter.security_realm}}"{% if cookiecutter.security_realm == "local"  %},
+        "User" : "{{cookiecutter.auth_local_user}}",
+        "Pass" : "{{cookiecutter.auth_local_pass}}"
+        {% endif %}
+    }{% if cookiecutter.security_realm == "github" %},
+    "GitHubAuth": {
+      "ClientId": "{{cookiecutter.auth_github_client_id}}",
+      "Secret" : "{{cookiecutter.auth_github_secret}}",
+      "Admin": "{{cookiecutter.auth_github_admin_role}}"
+    }
+    {% endif %}
+}

@@ -1,0 +1,7 @@
+{
+    "Product" : {
+        "Id" : "{{cookiecutter.product_id}}",
+        "Name" : "{{cookiecutter.product_name}}",
+        "Domain" : "{{cookiecutter.domain_id}}"
+    }
+}

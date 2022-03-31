@@ -1,0 +1,12 @@
+{
+    "Product" : {
+        "Id" : "{{cookiecutter.product_id}}",
+        "Name" : "{{cookiecutter.product_id}}",
+        "Domain" : "{{cookiecutter.domain_id}}"
+    },
+    "Environments" : {
+        "{{cookiecutter.environment_id}}" : {
+            "MultiAZ" : {{ 'true' if cookiecutter.multi_az == true else 'false' }}
+        }
+    }
+}

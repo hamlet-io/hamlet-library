@@ -1,0 +1,3 @@
+{
+    "LOG_LEVEL" : "{{cookiecutter.default_log_level}}"
+}

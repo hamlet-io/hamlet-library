@@ -1,0 +1,18 @@
+{
+    "domain_id" : "",
+    "product_id" : "automation",
+    "environment_id" : "alm",
+    "segment_id" : "default",
+    "multi_az" : false,
+    "source_ip_network" : "0.0.0.0/0",
+    "certificate_arn" : "arn:aws:acm:us-east-1:123456789:certificate/replace-this-with-your-arn",
+    "certificate_cn" : "*.alm.local",
+    "certificate_region" : "{% set arn_array = cookiecutter.certificate_arn.split(':') %}{{arn_array[3]}}",
+    "ecs_instance_type" : "t3.medium",
+    "security_realm" : ["local", "github" ],
+    "auth_local_user" : "{{ 'admin' if cookiecutter.security_realm == 'local' else 'n/a' }}",
+    "auth_local_pass" : "{{ '' if cookiecutter.security_realm == 'local' else 'n/a' }}",
+    "auth_github_client_id" : "{{ '' if cookiecutter.security_realm == 'github' else 'n/a' }}",
+    "auth_github_secret" : "{{ '' if cookiecutter.security_realm == 'github' else 'n/a' }}",
+    "auth_github_admin_role" : "{{ '' if cookiecutter.security_realm == 'github' else 'n/a' }}"
+}

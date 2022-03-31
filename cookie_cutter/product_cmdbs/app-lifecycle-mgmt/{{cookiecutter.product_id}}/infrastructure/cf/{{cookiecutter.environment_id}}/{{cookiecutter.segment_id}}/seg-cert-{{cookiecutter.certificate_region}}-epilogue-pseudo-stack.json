@@ -1,0 +1,17 @@
+{
+    "Stacks": [
+        {
+            "Comment": "Certificate",
+            "Outputs": [
+                {
+                    "OutputKey": "certificateX{{cookiecutter.certificate_cn|replace('*','star')|replace('.','X')|replace('-','X')}}",
+                    "OutputValue": "{{cookiecutter.certificate_arn}}"
+                },
+                {
+                    "OutputKey": "certificateX{{cookiecutter.certificate_cn|replace('*','star')|replace('.','X')|replace('-','X')}}Xarn",
+                    "OutputValue": "{{cookiecutter.certificate_arn}}"
+                }
+            ]
+        }
+    ]
+}

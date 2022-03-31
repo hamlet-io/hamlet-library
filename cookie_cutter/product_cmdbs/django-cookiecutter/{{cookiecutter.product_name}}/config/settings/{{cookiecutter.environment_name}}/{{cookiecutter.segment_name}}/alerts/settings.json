@@ -1,0 +1,10 @@
+{
+    {% if cookiecutter.alerts_use_ktlg == "yes" %}
+    "ALERTS_KTLG_SUBSCRIPTION_PROTOCOL" : "https",
+    "KTLG_SUBSCRIPTION_ENDPOINT" : "https://{{cookiecutter.alerts_ktlg_hostname}}/slack/sns-slack?dest={{cookiecutter.alerts_ktlg_channel}}&colorCode={{cookiecutter.alerts_ktlg_hex_colorcode}}"{% if cookiecutter.alerts_use_email == "yes" %},{% endif %}
+    {% endif %}
+    {% if cookiecutter.alerts_use_email == "yes" %}
+    "ALERTS_EMAIL_SUBSCRIPTION_PROTOCOL" : "email",
+    "ALERTS_EMAIL_SUBSCRIPTION_ENDPOINT" : "{{cookiecutter.alerts_email_address}}"
+    {% endif %}
+}

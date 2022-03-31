@@ -1,0 +1,10 @@
+{
+    "AWS" : {
+        "Automation" : {
+            "Policies" : ""
+        }
+    },
+    "ENABLE_DOCKER" : false,
+    "DIND_ENABLED" : true,
+    "DOCKER_STAGE_DIR" : "/home/jenkins"
+}

@@ -1,0 +1,287 @@
+{
+    "Solution" : {
+        "Id" : "app",
+        "Name" : "app"
+    },
+    "Tiers" : {
+        "elb" : {
+            "Components" : {
+                "alm" : {
+                    "lb" : {
+                        "Instances" : {
+                            "default" : {
+                                "deployment:Unit" : "alm-lb"
+                            }
+                        },
+                        "Engine" : "application",
+                        "Logs" : true,
+                        "PortMappings" : {
+                            "jenkinshttps" : {
+                                "IPAddressGroups" : ["automation_users"],
+                                "Priority" : 500,
+                                "Forward" : {
+                                    "TargetType" : "ip"
+                                },
+                                "HostFilter" : true,
+                                "Certificate" : {
+                                    "IncludeInHost" : {
+                                        "Product" : true,
+                                        "Environment" : false,
+                                        "Segment" : false,
+                                        "Tier" : false,
+                                        "Component" : false,
+                                        "Instance" : false,
+                                        "Version" : false,
+                                        "Host" : false
+                                    }
+                                }
+                            },
+                            "http" : {
+                                "Mapping" : "http",
+                                "IPAddressGroups" : ["automation_users"],
+                                "Redirect" : {}
+                            }
+                        }
+
+                    }
+                }
+            }
+        },
+        "ilb" : {
+            "Components" : {
+                "localservices" : {
+                    "serviceregistry" : {
+                        "Instances" : {
+                            "default" : {
+                                "deployment:Unit" : "local-registry"
+                            }
+                        },
+                        "Namespace" : {
+                            "IncludeInDomain" : {
+                                "Environment" : true,
+                                "Product" : true
+                            }
+                        },
+                        "RegistryServices" : {
+                            "jenkins" : {
+                                "Instances" : {
+                                    "msw" : {}
+                                },
+                                "ServiceName" : {
+                                    "Host" : "jenkins",
+                                    "IncludeInHost" : {
+                                        "Component" : false,
+                                        "Environment" : false,
+                                        "Instance" : true,
+                                        "Host" : true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "app" : {
+            "Components" : {
+                "alm-ecs" : {
+                    "ECS" : {
+                        "Instances" : {
+                            "default" : {
+                                "deployment:Unit" : "alm-ecs"
+                            }
+                        },
+                        "AutoScaling" : {
+                            "AlwaysReplaceOnUpdate" : true,
+                            "ActivityCooldown" : 120,
+                            "ReplaceCluster" : true
+                        },
+                        "HostScalingPolicies" : {
+                            "computeProvider" : {
+                                "Type"  : "ComputeProvider",
+                                "ComputeProvider" : {
+                                    "TargetCapacity" : 90
+                                }
+                            }
+                        },
+                        "VolumeDrivers" : [ "ebs" ],
+                        "Services" : {
+                            "jenkins" : {
+                                "Instance" : {
+                                    "deployment:Unit" : "jenkins"
+                                },
+                                "Engine" : "fargate",
+                                "aws:FargatePlatform" : "1.4.0",
+                                "NetworkMode" : "awsvpc",
+                                "DesiredCount" : 1,
+                                "Containers" : {
+                                    "_jenkins" : {
+                                        "Cpu" : 1024,
+                                        "Memory" : 3072,
+                                        "MaximumMemory" : 3072,
+                                        "Image": {
+                                            "Source": "containerregistry",
+                                            "Source:containerregistry": {
+                                                "Image": "hamletio/jenkins:latest"
+                                            }
+                                        },
+                                        "Ports" : {
+                                            "jenkins" : {
+                                                "LB" : {
+                                                    "Tier": "elb",
+                                                    "Component"  : "jenkins",
+                                                    "PortMapping" : "jenkinshttps",
+                                                    "LinkName" : "JENKINSLB"
+                                                },
+                                                "DynamicHostPort" : false,
+                                                "IPAddressGroups" : [ "_localnet", "_segment" ]
+                                            },
+                                            "jenkinsjnlp" : {
+                                                "Registry" : {
+                                                    "Tier": "ilb",
+                                                    "Component"  : "localservices",
+                                                    "RegistryService" : "jenkins",
+                                                    "LinkName" : "JENKINS_LOCAL"
+                                                },
+                                                "DynamicHostPort" : false,
+                                                "IPAddressGroups" : [ "_localnet", "_segment" ]
+                                            }
+                                        },
+                                        "Links" : {
+                                            "ecs" : {
+                                                "Tier" : "app",
+                                                "Component" : "alm-ecs",
+                                                "Instance" : "",
+                                                "Version" : ""
+                                            },
+                                            "efs_jenkins_home" : {
+                                                "Tier" : "app",
+                                                "Component" : "alm-efs",
+                                                "Version" : "",
+                                                "Mount" : "jenkins"
+                                            },
+                                            "agent-hamlet" : {
+                                                "Tier" : "app",
+                                                "Component" : "alm-ecs",
+                                                "Task" : "hamlet",
+                                                "Role" : "run"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "Tasks" : {
+                            "hamlet" : {
+                                "Instances" : {
+                                    "default" : {
+                                        "deployment:Unit" : "hamlet"
+                                    }
+                                },
+                                "FixedName" : true,
+                                "Containers" : {
+                                    "_hamlet" : {
+                                        "Cpu" : 256,
+                                        "MemoryReservation" : 512,
+                                        "MaximumMemory" : -1,
+                                        "ContainerNetworkLinks" : [ "dind" ],
+                                        "Version" : "latest-jenkins"
+                                    },
+                                    "dind" : {
+                                        "Extensions" : [ "_dind" ],
+                                        "Cpu" : 256,
+                                        "MemoryReservation" : 512,
+                                        "MaximumMemory" : -1,
+                                        "Privileged" : true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "alm-efs" : {
+                    "EFS" : {
+                        "Instances" : {
+                            "default" : {
+                                "deployment:Unit" : "alm-efs"
+                            }
+                        },
+                        "Mounts" : {
+                            "jenkins" : {
+                                "chroot" : true,
+                                "Directory" : "/jenkins_home/",
+                                "Ownership" : {
+                                    "Enforced" : true,
+                                    "UID" : 1000,
+                                    "GID" : 1000
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "mgmt" : {
+            "Components" : {
+                "ssh" : {
+                    "bastion" : {
+                        "IPAddressGroups" : [ "automation_users"]
+                    }
+                }
+            }
+        }
+    },
+    "IPAddressGroups" : {
+        "automation_users" : {
+            "automation_users" : {
+                "Description" : "Automation User IP Address List",
+                "CIDR": "{{cookiecutter.source_ip_network}}"
+            }
+        }
+    },
+    "Processors" : {
+        "default" : {
+            "ECS": {
+                "Processor": "{{cookiecutter.ecs_instance_type}}",
+                "MinCount": 1,
+                "MaxCount": 2,
+                "DesiredCount": 1
+            }
+        }
+    },
+    "Ports" :  {
+        "jenkins" : {
+            "Port": 8080,
+            "Protocol": "HTTP",
+            "IPProtocol": "tcp",
+            "HealthCheck" : {
+                "Path" : "/robots.txt",
+                "Interval" : "30",
+                "Timeout" : "29",
+                "HealthyThreshold" : "2",
+                "UnhealthyThreshold" : "10"
+            }
+        },
+        "jenkinsjnlp" : {
+            "Port" : 50000,
+            "Protocol" : "TCP",
+            "IPProtocol" : "tcp",
+            "HealthCheck" : {
+                "Interval" : "30",
+                "Timeout" : "29",
+                "HealthyThreshold" : "2",
+                "UnhealthyThreshold" : "10"
+            }
+        }
+    },
+    "PortMappings" : {
+        "jenkinshttps": {
+            "Source": "https",
+            "Destination": "jenkins"
+        },
+        "jenkinsjnlp" : {
+            "Source" : "jenkinsjnlp",
+            "Destination" : "jenkinsjnlp"
+        }
+    }
+}

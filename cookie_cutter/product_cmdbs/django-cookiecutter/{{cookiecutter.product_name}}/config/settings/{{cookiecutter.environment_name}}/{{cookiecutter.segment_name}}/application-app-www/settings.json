@@ -1,0 +1,5 @@
+{
+    "DJANGO_DEFAULT_FROM_EMAIL" : "{{cookiecutter.email_from}}",
+    "DJANGO_EMAIL_SUBJECT_PREFIX" : "{{cookiecutter.email_subject_prefix}}",
+    "DJANGO_SERVER_EMAIL" : "{{cookiecutter.email_server_from}}"
+}
